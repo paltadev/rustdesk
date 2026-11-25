@@ -1,13 +1,9 @@
 name: Flutter Tag Build
 
+# Palta PC: solo a mano (Actions → Run workflow, o `gh workflow run flutter-tag.yml --ref <tag>`).
+# Con el disparo por tag, subir el tag y lanzarlo a mano corría dos builds y GitHub apagó Actions en el fork.
 on:
   workflow_dispatch:
-  push:
-    tags:
-      - 'v[0-9]+.[0-9]+.[0-9]+'
-      - '[0-9]+.[0-9]+.[0-9]+'
-      - 'v[0-9]+.[0-9]+.[0-9]+-[0-9]+'
-      - '[0-9]+.[0-9]+.[0-9]+-[0-9]+'
 
 jobs:
   run-flutter-tag-build:
