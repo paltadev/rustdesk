@@ -2457,7 +2457,10 @@ pub fn create_symmetric_key_msg(their_pk_b: [u8; 32]) -> (Bytes, Bytes, secretbo
 
 #[inline]
 pub fn using_public_server() -> bool {
+    // Palta PC: el servidor propio viene incorporado (RENDEZVOUS_SERVERS), no cargado en la configuración.
+    // Sin el segundo control, el cliente se creía en los servidores públicos de RustDesk (aviso «set up your own server»).
     crate::get_custom_rendezvous_server(get_option("custom-rendezvous-server")).is_empty()
+        && config::RENDEZVOUS_SERVERS.iter().any(|s| is_public(s))
 }
 
 pub struct ThrottledInterval {
