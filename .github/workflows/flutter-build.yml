@@ -473,8 +473,8 @@ jobs:
           # Palta PC: el programa instalado se busca como "<APP_NAME>.exe" (acceso directo, servicio, desinstalador),
           # asi que el .exe va empaquetado con ese nombre. Copia aparte: el MSI de abajo sigue usando ./rustdesk tal cual.
           rm -rf ../../rustdesk-palta && cp -r ../../rustdesk ../../rustdesk-palta
-          mv ../../rustdesk-palta/rustdesk.exe "../../rustdesk-palta/Palta PC Remoto.exe"
-          python3 ./generate.py -f ../../rustdesk-palta/ -o . -e "../../rustdesk-palta/Palta PC Remoto.exe"
+          mv ../../rustdesk-palta/rustdesk.exe "../../rustdesk-palta/PaltaPC-Remoto.exe"
+          python3 ./generate.py -f ../../rustdesk-palta/ -o . -e "../../rustdesk-palta/PaltaPC-Remoto.exe"
           popd
           mkdir -p ./SignOutput
           mv ./target/release/rustdesk-portable-packer.exe ./SignOutput/rustdesk-${{ env.VERSION }}-${{ matrix.job.arch }}.exe

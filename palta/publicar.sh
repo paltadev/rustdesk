@@ -11,7 +11,7 @@ set -euo pipefail
 
 REPO=paltadev/rustdesk
 TAG=${1:?Uso: $0 vX.Y.Z}
-VER=${TAG#v}
+VER=${TAG#v}; VER=${VER%-*}   # v1.5.3-1 (recompilación de la misma versión) → los assets se llaman rustdesk-1.5.3-…
 AQUI=$(cd "$(dirname "$0")" && pwd)
 TMP=$(mktemp -d)
 trap 'rm -rf "$TMP"' EXIT

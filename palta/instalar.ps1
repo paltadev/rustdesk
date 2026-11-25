@@ -12,7 +12,8 @@
 
     $COMANDO = 'irm https://paltapc.com/remoto | iex'
     $BASE    = 'https://github.com/paltadev/rustdesk/releases/latest/download'
-    $NOMBRE  = 'Palta PC Remoto'
+    $NOMBRE  = 'PaltaPC-Remoto'    # APP_NAME del programa: carpeta, .exe y servicio (RustDesk 1.5 no acepta espacios)
+    $MARCA   = 'Palta PC Remoto'   # como se lo nombra en pantalla
     $EXE     = Join-Path $env:ProgramFiles "$NOMBRE\$NOMBRE.exe"
     $PAGINA  = 'https://paltapc.com/remoto'
 
@@ -31,7 +32,7 @@
 
     Write-Host ''
     Write-Host '  ==========================================' -ForegroundColor Green
-    Write-Host "         $NOMBRE - instalaci${o}n" -ForegroundColor Green
+    Write-Host "         $MARCA - instalaci${o}n" -ForegroundColor Green
     Write-Host '  ==========================================' -ForegroundColor Green
     Write-Host ''
 
