@@ -71,7 +71,10 @@
 
         # 3. Instalar (o actualizar, si ya estaba).
         Paso 'Instalando (puede tardar un minuto)...'
-        Start-Process $instalador -ArgumentList '--silent-install' -Wait
+        # Sin -Wait: Start-Process -Wait espera tambien a los procesos hijos, y el instalador deja el programa abierto
+        # (la espera no terminaba nunca). Se espera solo al instalador y despues se controla el resultado abajo.
+        $p = Start-Process $instalador -ArgumentList '--silent-install' -PassThru
+        $p.WaitForExit()
 
         $hasta = (Get-Date).AddSeconds(120)
         while (-not ((Test-Path $EXE) -and (Get-Service $NOMBRE -ErrorAction SilentlyContinue | Where-Object Status -eq 'Running'))) {
