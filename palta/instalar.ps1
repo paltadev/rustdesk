@@ -17,7 +17,7 @@
     $PAGINA  = 'https://paltapc.com/remoto'
 
     $a = [char]0xE1; $e = [char]0xE9; $i = [char]0xED; $o = [char]0xF3; $u = [char]0xFA
-    $n = [char]0xF1; $preg = [char]0xBF
+    $n = [char]0xF1
 
     function Paso($texto)  { Write-Host "  > $texto" -ForegroundColor Cyan }
     function Falla($texto) {
@@ -90,24 +90,6 @@
             }
         }
 
-        # 5. Acceso permanente, solo si el cliente quiere. La clave se genera en este equipo y no se guarda en ningun archivo.
-        $clave = ''
-        Write-Host ''
-        Write-Host "  ${preg}Quer${e}s dejar acceso permanente?" -ForegroundColor White
-        Write-Host "  Sirve para que Palta PC pueda conectarse sin que tengas que aceptar cada vez." -ForegroundColor Gray
-        $resp = Read-Host "  Escrib${i} S para s${i}, o Enter para no"
-        if ($resp -match '^\s*[sS]') {
-            $letras = 'abcdefghjkmnpqrstuvwxyz23456789'   # sin 0/o, 1/l/i: facil de dictar
-            $azar = New-Object byte[] 12
-            [Security.Cryptography.RandomNumberGenerator]::Create().GetBytes($azar)
-            $clave = -join ($azar | ForEach-Object { $letras[$_ % $letras.Length] })
-            $r = (& $EXE --password $clave | Out-String).Trim()
-            if ($r -notmatch 'Done') {
-                Write-Host "  No se pudo poner la clave ($r). Se sigue sin acceso permanente." -ForegroundColor Yellow
-                $clave = ''
-            }
-        }
-
         try { Set-Clipboard -Value $id } catch { }
 
         Write-Host ''
@@ -115,7 +97,6 @@
         Write-Host '   Listo. Pasale estos datos a Palta PC:' -ForegroundColor Green
         Write-Host ''
         Write-Host "     ID:     $id" -ForegroundColor White
-        if ($clave) { Write-Host "     Clave:  $clave" -ForegroundColor White }
         Write-Host ''
         Write-Host "   (el ID ya qued${o} copiado: pod${e}s pegarlo en WhatsApp)" -ForegroundColor Gray
         Write-Host '  ==========================================' -ForegroundColor Green
